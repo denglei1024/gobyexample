@@ -1,4 +1,4 @@
-package main
+package string_concat
 
 import (
 	"bytes"
