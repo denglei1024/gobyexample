@@ -48,3 +48,12 @@ func TestSliceCreate6(t *testing.T) {
 	slice := arr[:]
 	t.Log(slice)
 }
+
+func TestSliceAppend(t *testing.T) {
+	slice := make([]int, 0)
+	t.Logf("len:%d cap:%d slice:%v", len(slice), cap(slice), slice)
+	for i := 0; i < 100; i++ {
+		slice = append(slice, i)
+		t.Logf("len:%d cap:%d slice:%v", len(slice), cap(slice), slice)
+	}
+}
