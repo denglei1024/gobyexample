@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"os"
+	"text/template"
 )
 
 func main() {
@@ -13,6 +15,7 @@ func main() {
 	}
 
 	http.HandleFunc("/", index)
+	http.HandleFunc("/index.html", indexHtml)
 
 	if err := server.ListenAndServe(); err != nil {
 		log.Print(nil)
@@ -31,4 +34,14 @@ func index(w http.ResponseWriter, r *http.Request) {
 	indexData.Desc = "学习案例"
 	jsonStr, _ := json.Marshal(indexData)
 	w.Write(jsonStr)
+}
+
+func indexHtml(w http.ResponseWriter, r *http.Request) {
+	var indexData IndexData
+	indexData.Title = "博客"
+	indexData.Desc = "学习案例"
+	t := template.New("index.html")
+	path, _ := os.Getwd()
+	t, _ = t.ParseFiles(path + "/template/index.html")
+	t.Execute(w, indexData)
 }
